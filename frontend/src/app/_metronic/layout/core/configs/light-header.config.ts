@@ -114,7 +114,7 @@ export const LightHeaderConfig: ILayout = {
     pageLoader: {
       componentName: 'page-loader',
       type: 'none',
-      logoImage: 'default.svg',
+      logoImage: 'bnfd-logo.png',
       logoClass: 'mh-75px',
     },
   },

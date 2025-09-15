@@ -35,7 +35,9 @@ export class AuthService implements OnDestroy {
 
   token:any
   user:any
-
+  /* private _user$ = new BehaviorSubject<any | null>(null);
+  user$ = this._user$.asObservable(); */
+  
   constructor(
     private authHttpService: AuthHTTPService,
     private router: Router,
@@ -57,7 +59,7 @@ export class AuthService implements OnDestroy {
         const result = this.setAuthFromLocalStorage(auth);
         return result;
       }),
-      // switchMap(() => this.getUserByToken()),
+       switchMap(() => this.getUserByToken()),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);

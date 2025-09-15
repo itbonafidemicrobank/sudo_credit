@@ -1,13 +1,20 @@
 :host {
-  width: 100%;
-  @media (min-width: 992px) {
-    .login-form {
-      width: 100%;
-      max-width: 450px;
+  width: 30rem;
+  display: block; /* para que el host participe en el layout si antes estaba en inline */
 
-      .mat-form-field {
-        width: 100%;
-      }
-    }
+  .link,.company-name {
+    color: orangered;
   }
+
+  .btn {
+    background-color: orangered;
+    color: #ffff;
+  }
+}
+@media (min-width: 992px) {
+  :host {
+    width: 30rem; /* o el valor que desees en pantallas grandes */
+  }
+
+  
 }
