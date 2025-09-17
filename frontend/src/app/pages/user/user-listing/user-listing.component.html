@@ -5,7 +5,7 @@
       <!--begin::Search-->
       <div class="d-flex align-items-center position-relative my-1">
         <app-keenicon name="magnifier" class="fs-3 position-absolute ms-5"></app-keenicon>
-        <input type="text" data-action="filter" class="form-control form-control-solid w-250px ps-12" placeholder="Search Users">
+        <input type="text" data-action="filter" class="form-control form-control-solid w-250px ps-12" placeholder="Buscar usuarios">
       </div>
       <!--end::Search-->
     </div>
@@ -17,7 +17,7 @@
       <div class="d-flex justify-content-end">
         <!--begin::Add user-->
         <button type="button" class="btn btn-primary" data-action="create">
-          Add User
+          Agregar Usuarios
         </button>
         <!--end::Add user-->
       </div>
@@ -34,10 +34,11 @@
 <swal #noticeSwal [swalOptions]="swalOptions">
 </swal>
 
+<!-- VENTA MODAL DE USUARIOS -->
 <ng-template #formModal let-modal>
   <form #myForm="ngForm" (ngSubmit)="onSubmit($event, myForm)">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">User Details</h4>
+      <h4 class="modal-title" id="modal-basic-title">Información de Usuarios</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
@@ -52,9 +53,8 @@
           <div class="d-flex flex-stack flex-grow-1">
             <!--begin::Content-->
             <div class="fw-semibold">
-              <div class="fs-6 text-gray-700">Updating customer details will receive a privacy audit. For more info,
-                please read our
-                <a href="#">Privacy Policy</a>
+              <div class="fs-6 text-gray-700">Rellena todos los campos del siguiente formulario. Para mas información contacte con el servicio técnico.
+               <!--  <a href="#">Privacy Policy</a> -->
               </div>
             </div>
             <!--end::Content-->
@@ -75,13 +75,25 @@
           <!--begin::Input group-->
           <div class="fv-row mb-7">
             <!--begin::Label-->
-            <label class="required fw-semibold fs-6 mb-2">Name</label>
+            <label class="required fw-semibold fs-6 mb-2">Nombre</label>
             <!--end::Label-->
             <!--begin::Input-->
             <input type="text" class="form-control form-control-solid" name="name" [(ngModel)]="userModel.name" #name="ngModel" required minlength="4" />
             <div *ngIf="myForm.submitted && myForm.invalid" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-              <div *ngIf="name.errors?.['required']">Name is required</div>
-              <div *ngIf="name.errors?.['minlength']">Name must be at least 4 characters long</div>
+              <div *ngIf="name.errors?.['required']">Campo obligatorio</div>
+              <div *ngIf="name.errors?.['minlength']">El nombre debe tener al menos 4 caracteres</div>
+            </div>
+            <!--end::Input-->
+          </div>
+          <div class="fv-row mb-7">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Apellidos</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="text" class="form-control form-control-solid" name="lastname" [(ngModel)]="userModel.lastname" #lastname="ngModel" required minlength="4" />
+            <div *ngIf="myForm.submitted && myForm.invalid" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+              <div *ngIf="lastname.errors?.['required']">Campo obligatorio</div>
+              <div *ngIf="lastname.errors?.['minlength']">El apellido debe tener al menos 4 caracteres</div>
             </div>
             <!--end::Input-->
           </div>
@@ -90,8 +102,8 @@
           <div class="fv-row mb-7">
             <!--begin::Label-->
             <label class="required fw-semibold fs-6 mb-2">
-              <span>Email</span>
-              <span class="ms-1" placement="end" ngbTooltip="Email address must be active">
+              <span>Correo</span>
+              <span class="ms-1" placement="end" ngbTooltip="La direccion de correo electrónico debe ser única.">
                 <app-keenicon name="information" class="fs-7"></app-keenicon>
               </span>
             </label>
@@ -99,15 +111,28 @@
             <!--begin::Input-->
             <input type="email" class="form-control form-control-solid" name="email" [(ngModel)]="userModel.email" #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
             <div *ngIf="myForm.submitted && myForm.invalid" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-              <div *ngIf="email.errors?.['required']">Email is required</div>
-              <div *ngIf="email.errors?.['pattern']">Email is not valid</div>
+              <div *ngIf="email.errors?.['required']">Campo obligatorio</div>
+              <div *ngIf="email.errors?.['pattern']">El correo electrónico no es válido</div>
             </div>
             <!--end::Input-->
           </div>
           <!--end::Input group-->
+          <!--begin::Input group-->
+          <div class="fv-row mb-7">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Contraseña</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <input type="password" class="form-control form-control-solid" name="password" [(ngModel)]="userModel.password" #password="ngModel" required minlength="4" />
+            <div *ngIf="myForm.submitted && myForm.invalid" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+              <div *ngIf="password.errors?.['required']">Campo obligatorio</div>
+              <div *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 4 caracteres</div>
+            </div>
+            <!--end::Input-->
+          </div>
 
           <div class="mb-7">
-            <label class="required fw-semibold fs-6 mb-5">Role</label>
+            <label class="required fw-semibold fs-6 mb-5">Rol</label>
 
             <div *ngFor="let role of (roles$ | async)?.data; let last = last">
               <div class="d-flex fv-row">
@@ -135,17 +160,17 @@
     <div class="modal-footer flex-center">
       <!--begin::Button-->
       <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3" (click)="modal.dismiss('cancel')">
-        Discard
+        Cancelar
       </button>
       <!--end::Button-->
 
       <!--begin::Button-->
       <button type="submit" id="kt_modal_update_customer_submit" class="btn btn-primary" [attr.data-kt-indicator]="isLoading ? 'on' : 'off'">
         <span class="indicator-label">
-          Submit
+          Guardar
         </span>
         <span class="indicator-progress">
-          Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          Por favor espera... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
       </button>
       <!--end::Button-->

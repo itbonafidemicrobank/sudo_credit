@@ -73,12 +73,12 @@
                     .menu-item {
                         .menu-link {
                             .menu-title {
-                                color: #4B5675;
+                                color: #ffffff;
                             }
 
                             &.active {
                                 .menu-title {
-                                    color: var(--#{$prefix}primary);
+                                    color: #000/* var(--#{$prefix}primary) */;
                                 }  
                             }
                         }

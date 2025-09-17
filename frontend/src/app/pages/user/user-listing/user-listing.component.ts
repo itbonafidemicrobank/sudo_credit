@@ -137,7 +137,7 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
     const successAlert: SweetAlertOptions = {
       icon: 'success',
       title: 'Success!',
-      text: this.userModel.id > 0 ? 'User updated successfully!' : 'User created successfully!',
+      text: this.userModel.id > 0 ? 'Usuario actualizado correctamente!' : 'Usuario creado correctamente!',
     };
     const errorAlert: SweetAlertOptions = {
       icon: 'error',
@@ -216,7 +216,7 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.swalOptions = Object.assign({
       buttonsStyling: false,
-      confirmButtonText: "Ok, got it!",
+      confirmButtonText: "Ok, entendido!",
       customClass: {
         confirmButton: "btn btn-" + style
       }
