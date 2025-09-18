@@ -134,7 +134,7 @@
           <div class="mb-7">
             <label class="required fw-semibold fs-6 mb-5">Rol</label>
 
-            <div *ngFor="let role of (roles$ | async)?.data; let last = last">
+            <div *ngFor="let role of roles; let last = last">
               <div class="d-flex fv-row">
                 <div class="form-check form-check-custom form-check-solid">
                   <input class="form-check-input me-3" id="kt_modal_update_role_option_{{ role.id }}" name="role" #role="ngModel" [(ngModel)]="userModel.role" type="radio" [value]="role.name" [checked]="last" />

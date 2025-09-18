@@ -1,17 +1,24 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import { Observable } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { DataTablesResponse, IUserModel, UserService } from 'src/app/_fake/services/user-service';
 import { SweetAlertOptions } from 'sweetalert2';
 import moment from 'moment';
 import { IRoleModel, RoleService } from 'src/app/_fake/services/role.service';
+
+interface Role {
+  id: number;
+  name: string;
+}
+
 
 @Component({
   selector: 'app-user-listing',
   templateUrl: './user-listing.component.html',
   styleUrls: ['./user-listing.component.scss']
 })
+
 export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isCollapsed1 = false;
@@ -35,7 +42,13 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   swalOptions: SweetAlertOptions = {};
 
-  roles$: Observable<DataTablesResponse>;
+  //roles$: Observable<DataTablesResponse>;
+ roles: Role[] = [
+  { id: 1, name: 'Admin' },
+  { id: 2, name: 'Agente' },
+  { id: 3, name: 'Director' }
+];
+
 
   constructor(private apiService: UserService, private roleService: RoleService, private cdr: ChangeDetectorRef) { }
 
@@ -52,7 +65,7 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: 'Name', data: 'name', render: function (data, type, full) {
+          title: 'Nombre', data: 'name', render: function (data, type, full) {
             const colorClasses = ['success', 'info', 'warning', 'danger'];
             const randomColorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
 
@@ -81,7 +94,7 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         },
         {
-          title: 'Role', data: 'role', render: function (data, type, row) {
+          title: 'Rol', data: 'role', render: function (data, type, row) {
             const roleName = row.roles[0]?.name;
             return roleName || '';
           },
@@ -90,14 +103,14 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
           type: 'string',
         },
         {
-          title: 'Last Login', data: 'last_login_at', render: (data, type, full) => {
+          title: 'Ultimo acceso', data: 'last_login_at', render: (data, type, full) => {
             const date = data || full.created_at;
             const dateString = moment(date).fromNow();
             return `<div class="badge badge-light fw-bold">${dateString}</div>`;
           }
         },
         {
-          title: 'Joined Date', data: 'created_at', render: function (data) {
+          title: 'Fecha de Registro', data: 'created_at', render: function (data) {
             return moment(data).format('DD MMM YYYY, hh:mm a');;
           }
         }
@@ -107,7 +120,7 @@ export class UserListingComponent implements OnInit, AfterViewInit, OnDestroy {
       },
     };
 
-    this.roles$ = this.roleService.getRoles();
+   // this.roles.push(this.roleService.getRoles());
   }
 
   delete(id: number) {
