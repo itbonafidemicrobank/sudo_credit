@@ -18,43 +18,38 @@ class PermissionsDemoSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['guard_name'=> 'api', 'name' => 'edit articles']);
-        Permission::create(['guard_name'=> 'api', 'name' => 'delete articles']);
-        Permission::create(['guard_name'=> 'api', 'name' => 'publish articles']);
-        Permission::create(['guard_name'=> 'api', 'name' => 'unpublish articles']);
+        Permission::create(['guard_name' => 'api','name' => 'register_role']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_role']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_role']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['guard_name'=> 'api', 'name' => 'writer']);
-        $role1->givePermissionTo('edit articles');
-        $role1->givePermissionTo('delete articles');
+        $role1 = Role::create(['guard_name' => 'api','name' => 'Super-Admin']);
+        $role2 = Role::create(['guard_name' => 'api','name' => 'Admin']);
 
-        $role2 = Role::create(['guard_name'=> 'api', 'name' => 'admin']);
-        $role2->givePermissionTo('publish articles');
-        $role2->givePermissionTo('unpublish articles');
 
-        $role3 = Role::create(['guard_name'=> 'api', 'name' => 'Super-Admin']);
-        // gets all permissions via Gate::before rule; see AuthServiceProvider
+        // gets all permissions for Super Admin and Admin
+        $role = Role::findByName('Super-Admin', 'api'); 
+        $role->givePermissionTo(Permission::all());
+
+        $role = Role::findByName('Admin', 'api'); 
+        $role->givePermissionTo(Permission::all());
 
         // create demo users
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Example User',
-            'email' => 'tester@example.com',
-            'password' => bcrypt('12345678'), // password
-        ]);
-        $user->assignRole($role1);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Example Admin User',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('12345678'), // password
+        $user1 = \App\Models\User::factory()->create([
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt("12345678"),
         ]);
-        $user->assignRole($role2);
+        $user1->assignRole($role1);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Developer',
+        $user2 = \App\Models\User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'Developpeur',
             'email' => 'dev@gmail.com',
-            'password' => bcrypt('12345678'), // password
+            'password' => bcrypt("12345678"),
         ]);
-        $user->assignRole($role3);
+        $user2->assignRole($role2);
     }
 }
