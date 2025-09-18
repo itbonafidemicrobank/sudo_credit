@@ -46,6 +46,11 @@ const Routing: Routes = [
     path: 'apps/permissions',
     loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
   },
+    //Nuestras rutas
+  {
+    path: 'roles', // -> La ruta principal de 'roles' debe comenzar por /roles
+    loadChildren: () => import('../modules/roles/roles.module').then((m) => m.RolesModule),
+  },
   {
     path: '',
     redirectTo: '/dashboard',
@@ -55,6 +60,7 @@ const Routing: Routes = [
     path: '**',
     redirectTo: 'error/404',
   },
+  
 ];
 
 export { Routing };

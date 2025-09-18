@@ -38,7 +38,7 @@ Route::group([
 
 Route::group([
  
-    // 'middleware' => 'auth:api',
+    'middleware' => 'auth:api',
     'prefix' => 'auth',
     // 'middleware' => ['auth:api'],
  

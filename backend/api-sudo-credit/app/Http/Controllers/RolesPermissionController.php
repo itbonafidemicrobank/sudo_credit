@@ -20,6 +20,7 @@ class RolesPermissionController extends Controller
             "roles"=>$roles->map(function($rol){
                 $rol->permission_pluck = $rol->permissions->pluck("name");
                 $rol->created_at = $rol->created_at -> format("Y-m-d h:i A");
+                $rol->updated_at = $rol->updated_at -> format("Y-m-d h:i A");
 
                 return $rol;
             }),
