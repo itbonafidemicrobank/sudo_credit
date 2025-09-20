@@ -38,11 +38,7 @@ Route::group([
 
 Route::group([
  
-<<<<<<< HEAD
-    // 'middleware' => 'auth:api',
-=======
     'middleware' => 'auth:api',
->>>>>>> develop-frontend
     'prefix' => 'auth',
     // 'middleware' => ['auth:api'],
  
