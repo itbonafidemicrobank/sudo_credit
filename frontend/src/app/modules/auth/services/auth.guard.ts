@@ -10,7 +10,7 @@ export class AuthGuard  {
     if(!this.authService.user || !this.authService.token){
       this.authService.logout();
       return false;
-    
+
   }
   let token = this.authService.token;
   let expiration = (JSON.parse(atob(token.split(".")[1]))).exp;
